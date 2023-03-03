@@ -11,12 +11,11 @@ import java.util.List;
 public class Question {
 
     private int id;
-    private String category;
-    private String type;
+    private String category; // headache
+    private String type; // basic, red-flag-sign, primary-headache-c, primary-headache, pain-area
     private String painSite;
     private String question;
     private String tag;
     private Boolean isMultiple;
-
     private List<Answer> answers;
 }
