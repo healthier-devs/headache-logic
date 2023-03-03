@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://healthier:masaki@localhost:27017/?authSource=healthier
+      host: 127.0.0.1
+      port: 27017
+      authentication-database: healthier
+      username: healthier
+      password: masaki
+      database: healthier
