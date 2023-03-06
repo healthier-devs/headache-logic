@@ -1,5 +1,7 @@
 package com.healthier.headachelogic.domain;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 import lombok.Getter;
 import org.bson.types.ObjectId;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Document(collection = "question")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Question {
     @Id
     private ObjectId _id;
@@ -27,6 +30,7 @@ public class Question {
 
     private String question;
     private String tag;
+    @Field(name = "is_multiple")
     private Boolean isMultiple;
     private List<Answer> answers;
 }
