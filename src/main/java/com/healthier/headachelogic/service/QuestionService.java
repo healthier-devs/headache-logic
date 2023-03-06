@@ -1,11 +1,17 @@
 package com.healthier.headachelogic.service;
 
+import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
+import com.healthier.headachelogic.dto.QuestionDto;
+import com.healthier.headachelogic.dto.ResultDto;
 import com.healthier.headachelogic.repository.QuestionRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,5 +26,48 @@ public class QuestionService {
      */
     public Optional<Question> findPainAreaFirstQuestion(String painSite) {
         return questionRepository.findByPainSiteContainsAndIsFirst(painSite, true);
+    }
+
+    /**
+     * 특정 통증 부위 다음 질문 조회
+     * type 1 : 다음 질문
+     * type 2 : 진단 결과 안내
+     */
+    public HeadachePainAreaNextResponse findPainAreaNextQuestion(int questionId, int answerId) {
+        Optional<Question> question = questionRepository.findById(questionId);
+        Answer answer = question.get().getAnswers().get(answerId); //답변 정보
+
+        //다음 질문이 존재할 때
+        if (answer.isDecisive() != true) {
+            int nextQuestionId = answer.getNextQuestionId(); //다음 질문 id
+            return new HeadachePainAreaNextResponse(questionRepository.findById(nextQuestionId).get());
+        }
+
+        //다음 질문이 존재하지 않을 때
+        else {
+            return new HeadachePainAreaNextResponse(answer.getResultId(), answer.getResult());
+        }
+    }
+
+    @Data
+    public class HeadachePainAreaNextResponse {
+        private int type;
+        private List<QuestionDto> questions = new ArrayList<>();
+        ResultDto resultDto;
+
+        //생성자
+        protected HeadachePainAreaNextResponse() {}
+
+        //1) 생성자 : 다음 질문 반환
+        public HeadachePainAreaNextResponse(Question question) {
+            type = 1;
+            questions.add(new QuestionDto(question));
+        }
+
+        //2) 생성자 : 진단 결과 안내
+        public HeadachePainAreaNextResponse(int resultId, String result) {
+            type = 2;
+            resultDto = new ResultDto(resultId, result);
+        }
     }
 }
