@@ -2,7 +2,6 @@ package com.healthier.headachelogic.service;
 
 import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
-import com.healthier.headachelogic.dto.QuestionDto;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import com.healthier.headachelogic.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +49,8 @@ public class QuestionService {
     /**
      * 추가적인 악화 요인 질문 조회
      */
-    public QuestionDto findAdditionalFactorQuestion() {
+    public Question findAdditionalFactorQuestion() {
         List<Question> questions = questionRepository.findByType("additional-factor");
-        return new QuestionDto(questions.get(0));
+        return questions.get(0);
     }
 }
