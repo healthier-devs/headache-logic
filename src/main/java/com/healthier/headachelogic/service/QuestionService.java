@@ -3,15 +3,12 @@ package com.healthier.headachelogic.service;
 import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
 import com.healthier.headachelogic.dto.QuestionDto;
-import com.healthier.headachelogic.dto.ResultDto;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import com.healthier.headachelogic.repository.QuestionRepository;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +36,7 @@ public class QuestionService {
         Answer answer = question.get().getAnswers().get(answerId); //답변 정보
 
         //다음 질문이 존재할 때
-        if (answer.isDecisive() != true) {
+        if (!answer.isDecisive()) {
             int nextQuestionId = answer.getNextQuestionId(); //다음 질문 id
             return new HeadachePainAreaNextResponse(questionRepository.findById(nextQuestionId).get());
         }
@@ -48,5 +45,13 @@ public class QuestionService {
         else {
             return new HeadachePainAreaNextResponse(answer.getResultId(), answer.getResult());
         }
+    }
+
+    /**
+     * 추가적인 악화 요인 질문 조회
+     */
+    public QuestionDto findAdditionalFactorQuestion() {
+        List<Question> questions = questionRepository.findByType("additional-factor");
+        return new QuestionDto(questions.get(0));
     }
 }
