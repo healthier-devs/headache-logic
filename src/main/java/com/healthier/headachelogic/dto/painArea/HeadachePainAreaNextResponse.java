@@ -12,7 +12,7 @@ import java.util.List;
 public class HeadachePainAreaNextResponse {
     private int type;
     private List<QuestionDto> questions = new ArrayList<>();
-    ResultDto resultDto;
+    ResultDto result;
 
     //생성자
     protected HeadachePainAreaNextResponse() {}
@@ -26,7 +26,7 @@ public class HeadachePainAreaNextResponse {
     //2) 생성자 : 진단 결과 안내
     public HeadachePainAreaNextResponse(int resultId, String result) {
         type = 2;
-        resultDto = new ResultDto(resultId, result);
+        this.result = new ResultDto(resultId, result);
     }
 }
 
