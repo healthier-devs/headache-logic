@@ -1,17 +1,15 @@
 package com.healthier.headachelogic.controller;
 
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
-import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstResponse;
+import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class QuestionControllerTest {
@@ -27,7 +25,7 @@ class QuestionControllerTest {
         request.setPainArea("뒷목");
 
         // when
-        HeadachePainAreaFirstResponse response = questionController.PainAreaFirstQuestion(request);
+        QuestionResponse response = questionController.PainAreaFirstQuestion(request);
 
         // then
         assertThat(response.getQuestions().get(0).getQuestion()).isEqualTo("목을 움직이거나 손으로 목근육을 눌렀을 때 평소 느끼는 통증과 유사한가요?");
@@ -63,5 +61,15 @@ class QuestionControllerTest {
         //then
         assertThat(response.getType()).isEqualTo(2);
         assertThat(response.getResultDto().getResult()).isEqualTo("삼차 신경통");
+    }
+
+    @DisplayName("API : 추가적인 악화요인 질문")
+    @Test
+    public void additionalFactorQuestion() throws Exception {
+        //given
+        QuestionResponse response = questionController.AdditionalFactorQuestion();
+
+        //then
+        assertThat(response.getQuestions().get(0).getQuestion()).isEqualTo("추가적인 악화요인을 살펴볼게요!\\n다음 중 해당되는 것을 모두 골라주세요.");
     }
 }
