@@ -1,6 +1,7 @@
 package com.healthier.headachelogic.service;
 
 import com.healthier.headachelogic.domain.Question;
+import com.healthier.headachelogic.dto.QuestionDto;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -106,5 +107,16 @@ class QuestionServiceTest {
         //then
         Assertions.assertThat(next.getType()).isEqualTo(2);
         Assertions.assertThat(next.getResultDto().getResult()).isEqualTo("삼차 신경통");
+    }
+
+    @DisplayName("추가적인 악화 요인 질문")
+    @Test
+    public void findAdditionalFactorQuestion() throws Exception {
+        //given
+        QuestionDto questionDto = questionService.findAdditionalFactorQuestion();
+
+        //then
+        Assertions.assertThat(questionDto.getQuestion()).isEqualTo("추가적인 악화요인을 살펴볼게요!\\n다음 중 해당되는 것을 모두 골라주세요.");
+        Assertions.assertThat(questionDto.getIsMultiple()).isEqualTo(true);
     }
 }
