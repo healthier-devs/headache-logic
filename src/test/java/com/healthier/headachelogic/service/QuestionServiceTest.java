@@ -1,6 +1,7 @@
 package com.healthier.headachelogic.service;
 
 import com.healthier.headachelogic.domain.Question;
+import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -85,7 +86,7 @@ class QuestionServiceTest {
         int answerId = 1;
 
         //when
-        QuestionService.HeadachePainAreaNextResponse next = questionService.findPainAreaNextQuestion(questionId, answerId);
+        HeadachePainAreaNextResponse next = questionService.findPainAreaNextQuestion(questionId, answerId);
 
         //then
         Assertions.assertThat(next.getType()).isEqualTo(1);
@@ -100,7 +101,7 @@ class QuestionServiceTest {
         int answerId = 0;
 
         //when
-        QuestionService.HeadachePainAreaNextResponse next = questionService.findPainAreaNextQuestion(questionId, answerId);
+        HeadachePainAreaNextResponse next = questionService.findPainAreaNextQuestion(questionId, answerId);
 
         //then
         Assertions.assertThat(next.getType()).isEqualTo(2);
