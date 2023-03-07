@@ -2,12 +2,13 @@ package com.healthier.headachelogic.controller;
 
 import com.healthier.headachelogic.domain.Question;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
-import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstResponse;
+import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import com.healthier.headachelogic.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +30,9 @@ public class QuestionController {
     // TODO : Exception 처리
     // TODO : 눈, 눈 주위
     @PostMapping("api/v2/diagnose/headache/pain-area/first")
-    public HeadachePainAreaFirstResponse PainAreaFirstQuestion(@RequestBody @Valid HeadachePainAreaFirstRequest request) {
+    public QuestionResponse PainAreaFirstQuestion(@RequestBody @Valid HeadachePainAreaFirstRequest request) {
         Optional<Question> question = questionService.findPainAreaFirstQuestion(request.getPainArea());
-        return new HeadachePainAreaFirstResponse(question.get());
+        return new QuestionResponse(question.get());
     }
 
     /**
@@ -40,5 +41,13 @@ public class QuestionController {
     @PostMapping("api/v2/diagnose/headache/pain-area/next")
     public HeadachePainAreaNextResponse PainAreaNextQuestion(@RequestBody @Valid HeadachePainAreaNextRequest request) {
         return questionService.findPainAreaNextQuestion(request.getQuestionId(), request.getAnswerId());
+    }
+
+    /**
+     * 추가적인 악화요인 질문
+     */
+    @GetMapping("api/v2/diagnose/headache/additional-factor")
+    public QuestionResponse AdditionalFactorQuestion() {
+        return new QuestionResponse(questionService.findAdditionalFactorQuestion());
     }
 }
