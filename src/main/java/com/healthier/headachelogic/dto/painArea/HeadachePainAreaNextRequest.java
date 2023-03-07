@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class HeadachePainAreaFirstRequest {
-    private String painArea;
+public class HeadachePainAreaNextRequest {
+    private int questionId;
+    private int answerId;
 }
