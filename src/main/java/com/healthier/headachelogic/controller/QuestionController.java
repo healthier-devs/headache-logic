@@ -3,6 +3,8 @@ package com.healthier.headachelogic.controller;
 import com.healthier.headachelogic.domain.Question;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstResponse;
+import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
+import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import com.healthier.headachelogic.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +30,15 @@ public class QuestionController {
     // TODO : 눈, 눈 주위
     @PostMapping("api/v2/diagnose/headache/pain-area/first")
     public HeadachePainAreaFirstResponse PainAreaFirstQuestion(@RequestBody @Valid HeadachePainAreaFirstRequest request) {
-        Optional<Question> question = questionService.findPainAreaFirstQuestion(request.getPain_area());
+        Optional<Question> question = questionService.findPainAreaFirstQuestion(request.getPainArea());
         return new HeadachePainAreaFirstResponse(question.get());
+    }
+
+    /**
+     * 특정 통증 부위 다음 질문
+     */
+    @PostMapping("api/v2/diagnose/headache/pain-area/next")
+    public HeadachePainAreaNextResponse PainAreaNextQuestion(@RequestBody @Valid HeadachePainAreaNextRequest request) {
+        return questionService.findPainAreaNextQuestion(request.getQuestionId(), request.getAnswerId());
     }
 }
