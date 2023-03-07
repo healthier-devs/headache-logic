@@ -1,8 +1,9 @@
 package com.healthier.headachelogic.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
-import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstResponse;
 import lombok.Data;
 import lombok.Getter;
 
@@ -11,10 +12,11 @@ import java.util.List;
 
 @Data
 @Getter
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class QuestionDto {
     int id;
-    String question;;
-    Boolean is_multiple;
+    String question;
+    Boolean isMultiple;
     List<AnswerDto> answers = new ArrayList<>();
 
     public QuestionDto(Question question) {
@@ -22,10 +24,10 @@ public class QuestionDto {
         this.question = question.getQuestion();
 
         if (question.getIsMultiple() == null) {
-            this.is_multiple = Boolean.FALSE;
+            this.isMultiple = Boolean.FALSE;
         }
         else {
-            this.is_multiple = question.getIsMultiple();
+            this.isMultiple = question.getIsMultiple();
         }
 
         for (Answer answer : question.getAnswers()) {
