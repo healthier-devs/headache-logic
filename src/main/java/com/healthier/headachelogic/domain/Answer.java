@@ -7,7 +7,7 @@ import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Answer {
     @Field(name = "answer_id")
     private int answerId;

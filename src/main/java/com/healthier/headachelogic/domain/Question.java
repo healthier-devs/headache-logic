@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Document(collection = "question")
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Question {
     @Id
     private ObjectId _id;
