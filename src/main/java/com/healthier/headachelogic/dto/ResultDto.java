@@ -6,13 +6,13 @@ import lombok.Getter;
 @Data
 @Getter
 public class ResultDto {
-    private int id;
+    private int result_id;
     private String result;
 
     protected ResultDto() {}
 
-    public ResultDto(int id, String result) {
-        this.id = id;
+    public ResultDto(int result_id, String result) {
+        this.result_id = result_id;
         this.result = result;
     }
 }
