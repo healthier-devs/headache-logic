@@ -2,6 +2,7 @@ package com.healthier.headachelogic.service;
 
 import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
+import com.healthier.headachelogic.domain.Type;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import com.healthier.headachelogic.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,13 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+
+    /**
+     * 두통 기본 질문 조회
+     */
+    public List<Question> findBasicQuestion() {
+        return questionRepository.findByType(Type.BASIC.label());
+    }
 
     /**
      * 특정 통증 부위 시작 질문 조회
