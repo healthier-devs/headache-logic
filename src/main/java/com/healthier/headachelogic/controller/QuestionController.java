@@ -32,6 +32,14 @@ public class QuestionController {
     }
 
     /**
+     * 두통 Red Flag Sign 질문
+     */
+    @GetMapping("api/v2/diagnose/headache/red-flag-sign")
+    public QuestionResponse RedFlagSignQuestion() {
+        return new QuestionResponse(questionService.findRedFlagSignQuestion());
+    }
+
+    /**
      * 특정 통증 부위 시작 질문
      */
 

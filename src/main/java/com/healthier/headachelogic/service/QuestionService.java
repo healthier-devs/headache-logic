@@ -27,6 +27,13 @@ public class QuestionService {
     }
 
     /**
+     * 두통 Red Flag Sign 질문 조회
+     */
+    public List<Question> findRedFlagSignQuestion() {
+        return questionRepository.findByType(Type.REDFLAGSIGN.label());
+    }
+
+    /**
      * 특정 통증 부위 시작 질문 조회
      */
     public Optional<Question> findPainAreaFirstQuestion(String painSite) {
