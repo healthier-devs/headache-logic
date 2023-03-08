@@ -18,4 +18,10 @@ public class QuestionResponse {
 //        System.out.println(question);
         questions.add(new QuestionDto(question));
     }
+
+    public QuestionResponse(List<Question> questionList) {
+        for(Question question : questionList) {
+            questions.add(new QuestionDto(question));
+        }
+    }
 }
