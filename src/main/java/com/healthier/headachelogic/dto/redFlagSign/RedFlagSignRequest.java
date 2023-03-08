@@ -1,0 +1,26 @@
+package com.healthier.headachelogic.dto.redFlagSign;
+
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.*;
+
+import java.util.List;
+
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class RedFlagSignRequest {
+    private List<QnA> questions;
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+    public static class QnA {
+        private int questionId;
+        private int answerId;
+    }
+}

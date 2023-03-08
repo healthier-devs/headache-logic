@@ -5,6 +5,8 @@ import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
 import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
+import com.healthier.headachelogic.dto.redFlagSign.RedFlagSignRequest;
+import com.healthier.headachelogic.dto.redFlagSign.RedFlagSignResponse;
 import com.healthier.headachelogic.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +39,14 @@ public class QuestionController {
     @GetMapping("api/v2/diagnose/headache/red-flag-sign")
     public QuestionResponse RedFlagSignQuestion() {
         return new QuestionResponse(questionService.findRedFlagSignQuestion());
+    }
+
+    /**
+     * 두통 Red Flag Sign 결과
+     */
+    @PostMapping("api/v2/diagnose/headache/red-flag-sign")
+    public RedFlagSignResponse RedFlagSignQuestion(@RequestBody @Valid RedFlagSignRequest request) {
+        return questionService.findRedFlagSignResult(request);
     }
 
     /**
