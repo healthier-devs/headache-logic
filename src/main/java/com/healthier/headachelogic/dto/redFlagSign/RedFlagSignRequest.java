@@ -13,6 +13,7 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RedFlagSignRequest {
     private List<QnA> questions;
+    private List<String> painArea;
 
     @Getter
     @Setter

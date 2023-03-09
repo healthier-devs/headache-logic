@@ -6,7 +6,6 @@ import com.healthier.headachelogic.dto.QuestionDto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,5 +14,5 @@ import java.util.List;
 public class RedFlagSignResponse {
     private int type;
     private String message;
-    private List<QuestionDto> questions = new ArrayList<>();
+    private List<QuestionDto> questions;
 }
