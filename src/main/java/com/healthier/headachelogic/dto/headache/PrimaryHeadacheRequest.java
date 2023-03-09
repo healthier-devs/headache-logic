@@ -1,4 +1,4 @@
-package com.healthier.headachelogic.dto.redFlagSign;
+package com.healthier.headachelogic.dto.headache;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -11,9 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class RedFlagSignRequest {
+public class PrimaryHeadacheRequest {
     private List<QnA> questions;
-    private List<String> painArea;
+    private int type;
+    private String message;
 
     @Getter
     @Setter

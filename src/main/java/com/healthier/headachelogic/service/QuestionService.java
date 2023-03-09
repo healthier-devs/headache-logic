@@ -4,9 +4,10 @@ import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
 import com.healthier.headachelogic.domain.Type;
 import com.healthier.headachelogic.dto.QuestionDto;
+import com.healthier.headachelogic.dto.headache.PrimaryHeadacheRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
-import com.healthier.headachelogic.dto.redFlagSign.RedFlagSignRequest;
-import com.healthier.headachelogic.dto.redFlagSign.RedFlagSignResponse;
+import com.healthier.headachelogic.dto.headache.RedFlagSignRequest;
+import com.healthier.headachelogic.dto.headache.HeadacheResponse;
 import com.healthier.headachelogic.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,27 +43,49 @@ public class QuestionService {
     /**
      * 두통 Red Flag Sign 결과
      */
-    public RedFlagSignResponse findRedFlagSignResult(RedFlagSignRequest request) {
+    public HeadacheResponse findRedFlagSignResult(RedFlagSignRequest request) {
         // Red Flag Sign 진단
         if (isRedFlagSign(request)) {
-            return RedFlagSignResponse.builder().type(1).message("RED FLAG SIGN").build();
+            return HeadacheResponse.builder().type(1).message("RED FLAG SIGN").build();
         }
 
         // 기타 부위 질문 요청 메시지
         List painAreas = Arrays.asList(request.getPainArea());
         if (painAreas.contains("눈") || painAreas.contains("뒷목") || painAreas.contains("턱") || painAreas.contains("얼굴피부")) {
-            return RedFlagSignResponse.builder().type(4).message("선택한 통증 부위 중 하나를 요청하세요").build();
+            return HeadacheResponse.builder().type(4).message("선택한 통증 부위 중 하나를 요청하세요").build();
         }
 
         List<QuestionDto> questions = getQuestionDtos(Type.PRIMARYHEADACHEC);
 
         //  만성 일차성 두통 공통 질문
         if (isChronicPain(request)) {
-            return RedFlagSignResponse.builder().type(3).message("만성 일차성 두통 공통 질문").questions(questions).build();
+            return HeadacheResponse.builder().type(3).message("만성 일차성 두통 공통 질문").questions(questions).build();
         }
 
         // 일차성 두통 공통 질문
-        return RedFlagSignResponse.builder().type(2).message("일차성 두통 공통 질문").questions(questions).build();
+        return HeadacheResponse.builder().type(2).message("일차성 두통 공통 질문").questions(questions).build();
+    }
+
+    /**
+     * 일차성 두통 공통 질문 결과
+     */
+    public HeadacheResponse findPrimaryHeadacheQuestion(PrimaryHeadacheRequest request) {
+        // 일차성 두통 공통 질문
+        if (request.getType() == 2) {
+
+        }
+
+        // 만성 일차성 두통 공통 질문
+        else {
+
+        }
+
+        /**
+         * 점수 계산 로직
+         *
+         * 예 -> 0 / 아니오 -> 1
+         *
+         */
     }
 
     /**

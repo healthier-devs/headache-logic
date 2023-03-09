@@ -1,12 +1,13 @@
 package com.healthier.headachelogic.controller;
 
 import com.healthier.headachelogic.domain.Question;
+import com.healthier.headachelogic.dto.headache.PrimaryHeadacheRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
 import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
-import com.healthier.headachelogic.dto.redFlagSign.RedFlagSignRequest;
-import com.healthier.headachelogic.dto.redFlagSign.RedFlagSignResponse;
+import com.healthier.headachelogic.dto.headache.RedFlagSignRequest;
+import com.healthier.headachelogic.dto.headache.HeadacheResponse;
 import com.healthier.headachelogic.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -45,8 +46,16 @@ public class QuestionController {
      * 두통 Red Flag Sign 결과
      */
     @PostMapping("api/v2/diagnose/headache/red-flag-sign")
-    public RedFlagSignResponse RedFlagSignQuestion(@RequestBody @Valid RedFlagSignRequest request) {
+    public HeadacheResponse RedFlagSignQuestion(@RequestBody @Valid RedFlagSignRequest request) {
         return questionService.findRedFlagSignResult(request);
+    }
+
+    /**
+     * 일차성 두통 공통 질문 결과
+     */
+    @PostMapping("api/v2/diagnose/headache/primary-headache")
+    public HeadacheResponse PrimaryHeadacheQuestion(@RequestBody @Valid PrimaryHeadacheRequest request) {
+        return questionService.findPrimaryHeadacheQuestion(request);
     }
 
     /**
