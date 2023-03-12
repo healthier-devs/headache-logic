@@ -1,6 +1,7 @@
 package com.healthier.headachelogic.controller;
 
 import com.healthier.headachelogic.domain.Question;
+import com.healthier.headachelogic.dto.headache.*;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
 import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
@@ -22,6 +23,46 @@ import java.util.Optional;
 public class QuestionController {
 
     private final QuestionService questionService;
+
+    /**
+     * 두통 기본 질문
+     */
+    @GetMapping("api/v2/diagnose/headache/basic")
+    public QuestionResponse BasicQuestion() {
+        return new QuestionResponse(questionService.findBasicQuestion());
+    }
+
+    /**
+     * 두통 Red Flag Sign 질문
+     */
+    @GetMapping("api/v2/diagnose/headache/red-flag-sign")
+    public QuestionResponse RedFlagSignQuestion() {
+        return new QuestionResponse(questionService.findRedFlagSignQuestion());
+    }
+
+    /**
+     * 두통 Red Flag Sign 결과
+     */
+    @PostMapping("api/v2/diagnose/headache/red-flag-sign")
+    public HeadacheResponse RedFlagSignQuestion(@RequestBody @Valid RedFlagSignRequest request) {
+        return questionService.findRedFlagSignResult(request);
+    }
+
+    /**
+     * 일차성 두통 공통 질문 결과
+     */
+    @PostMapping("api/v2/diagnose/headache/primary-headache")
+    public HeadacheResponse PrimaryHeadacheQuestion(@RequestBody @Valid PrimaryHeadacheRequest request) {
+        return questionService.findPrimaryHeadacheQuestion(request);
+    }
+
+    /**
+     * 일차성 두통 공통 질문 응답
+     */
+    @PostMapping("api/v2/diagnose/headache/primary-headache/next")
+    public PrimaryHeadacheNextResponse PrimaryHeadacheNextQuestion(@RequestBody @Valid QnARequest request) {
+        return questionService.findPrimaryHeadacheNextQuestion(request);
+    }
 
     /**
      * 특정 통증 부위 시작 질문
