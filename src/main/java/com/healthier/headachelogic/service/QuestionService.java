@@ -46,6 +46,7 @@ public class QuestionService {
     public HeadacheResponse findRedFlagSignResult(RedFlagSignRequest request) {
         // Red Flag Sign 진단
         if (isRedFlagSign(request)) {
+            // TODO: 진단 결과 조회 추가하기
             return HeadacheResponse.builder().type(1).message("RED FLAG SIGN").build();
         }
 
