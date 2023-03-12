@@ -1,7 +1,7 @@
 package com.healthier.headachelogic.controller;
 
 import com.healthier.headachelogic.domain.Question;
-import com.healthier.headachelogic.dto.headache.PrimaryHeadacheRequest;
+import com.healthier.headachelogic.dto.headache.*;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
 import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
@@ -54,6 +54,14 @@ public class QuestionController {
     @PostMapping("api/v2/diagnose/headache/primary-headache")
     public HeadacheResponse PrimaryHeadacheQuestion(@RequestBody @Valid PrimaryHeadacheRequest request) {
         return questionService.findPrimaryHeadacheQuestion(request);
+    }
+
+    /**
+     * 일차성 두통 공통 질문 응답
+     */
+    @PostMapping("api/v2/diagnose/headache/primary-headache/next")
+    public PrimaryHeadacheNextResponse PrimaryHeadacheNextQuestion(@RequestBody @Valid QnARequest request) {
+        return questionService.findPrimaryHeadacheNextQuestion(request);
     }
 
     /**

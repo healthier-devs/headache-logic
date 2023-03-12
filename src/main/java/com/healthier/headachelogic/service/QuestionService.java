@@ -4,7 +4,7 @@ import com.healthier.headachelogic.domain.Answer;
 import com.healthier.headachelogic.domain.Question;
 import com.healthier.headachelogic.domain.Type;
 import com.healthier.headachelogic.dto.QuestionDto;
-import com.healthier.headachelogic.dto.headache.PrimaryHeadacheRequest;
+import com.healthier.headachelogic.dto.headache.*;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
 import com.healthier.headachelogic.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -119,6 +119,28 @@ public class QuestionService {
             return getHeadacheResponse(310, 1, "편두통 질문");
 
         }
+
+    }
+
+    /**
+     * 일차성 두통 질문 응답
+     */
+    public PrimaryHeadacheNextResponse findPrimaryHeadacheNextQuestion(QnARequest request) {
+        Question question = questionRepository.findById(request.getQuestionId()).get();
+        Answer answer = question.getAnswers().get(request.getAnswerId());
+
+        if (answer.isDecisive()) { // 진단 결과 안내
+            return PrimaryHeadacheNextResponse.builder().type(2).result(new PrimaryHeadacheNextResponse.Result(answer.getResultId(), answer.getResult())).build();
+        }
+        else { // 다음 질문
+            List<Question> questions = new ArrayList<>();
+            questions.add(questionRepository.findById(answer.getNextQuestionId()).get());
+
+            List<QuestionDto> questionDtos = getQuestionDtos(questions);
+
+            return PrimaryHeadacheNextResponse.builder().type(1).questions(questionDtos).build();
+        }
+
 
     }
 
