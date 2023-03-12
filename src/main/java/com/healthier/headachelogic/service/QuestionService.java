@@ -6,8 +6,6 @@ import com.healthier.headachelogic.domain.Type;
 import com.healthier.headachelogic.dto.QuestionDto;
 import com.healthier.headachelogic.dto.headache.PrimaryHeadacheRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
-import com.healthier.headachelogic.dto.headache.RedFlagSignRequest;
-import com.healthier.headachelogic.dto.headache.HeadacheResponse;
 import com.healthier.headachelogic.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -151,10 +149,10 @@ public class QuestionService {
      * 만성 두통 감별 로직
      */
     private boolean isChronicPain(RedFlagSignRequest request) {
-        List<RedFlagSignRequest.QnA> chronicQuestions = request.getQuestions().stream().filter(qnA -> qnA.getQuestionId() == 100 || qnA.getQuestionId() == 101).collect(Collectors.toList());
+        List<QnARequest> chronicQuestions = request.getQuestions().stream().filter(qnA -> qnA.getQuestionId() == 100 || qnA.getQuestionId() == 101).collect(Collectors.toList());
         boolean isChronic = false;
 
-        for (RedFlagSignRequest.QnA q : chronicQuestions) {
+        for (QnARequest q : chronicQuestions) {
             if (q.getAnswerId() == 0) {
                 isChronic = true;
             }
@@ -166,12 +164,12 @@ public class QuestionService {
      * Red Flag Sign 감별 로직
      */
     private boolean isRedFlagSign(RedFlagSignRequest request) {
-        List<RedFlagSignRequest.QnA> redFlagQuestions = request.getQuestions().stream().filter(qnA -> qnA.getQuestionId() / 100 == 2).collect(Collectors.toList());
+        List<QnARequest> redFlagQuestions = request.getQuestions().stream().filter(qnA -> qnA.getQuestionId() / 100 == 2).collect(Collectors.toList());
 
         boolean isRedFlag = false;
-        List<RedFlagSignRequest.QnA> redFlagResult = new ArrayList<>(); // 진단 결과
+        List<QnARequest> redFlagResult = new ArrayList<>(); // 진단 결과
 
-        for (RedFlagSignRequest.QnA q : redFlagQuestions) {
+        for (QnARequest q : redFlagQuestions) {
             switch (q.getQuestionId()) {
                 case 200:
                     if (Arrays.asList(0, 1).contains(q.getAnswerId())) {

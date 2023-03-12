@@ -6,8 +6,6 @@ import com.healthier.headachelogic.dto.painArea.HeadachePainAreaFirstRequest;
 import com.healthier.headachelogic.dto.painArea.QuestionResponse;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextRequest;
 import com.healthier.headachelogic.dto.painArea.HeadachePainAreaNextResponse;
-import com.healthier.headachelogic.dto.headache.RedFlagSignRequest;
-import com.healthier.headachelogic.dto.headache.HeadacheResponse;
 import com.healthier.headachelogic.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
